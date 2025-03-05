@@ -4,6 +4,16 @@ import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import spacy
+import spacy
+import subprocess
+
+# Check if "en_core_web_sm" is installed, else download it
+try:
+    nlp = spacy.load("en_core_web_sm")
+except OSError:
+    subprocess.run(["python", "-m", "spacy", "download", "en_core_web_sm"])
+    nlp = spacy.load("en_core_web_sm")  # Load after downloading
+
 def load_user_data(profile_url):
     import requests
     x="https://linkedin-data-api.p.rapidapi.com/get-profile-data-by-url?url="
