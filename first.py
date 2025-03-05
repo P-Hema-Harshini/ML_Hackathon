@@ -30,7 +30,7 @@ def load_user_data(profile_url):
     # Extract skills as a list
     skills = [skill["name"] for skill in data3.get("skills",[])]
     st.write(skills)
-    st.warning('if there is an error saying "job_id=dataloc['data'][2]['id']" it means that the apikey is expired . use a valid key to get data')
+    st.warning("if there is an error saying job_id=dataloc['data'][2]['id'] it means that the apikey is expired . use a valid key to get data")
     df=pd.DataFrame()
     # Convert to DataFrame
     dff = pd.DataFrame({"Skills": [", ".join(skills)]})  # Store skills as a single string
