@@ -1,21 +1,13 @@
 import streamlit as st
 import json
 import pandas as pd
-# import pickle
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import spacy
-# with open("vectorizer.pkl", "rb") as file:
-#     vectorizer = pickle.load(file)
 headers = {
-        "X-RapidAPI-Key": "86ab80ae35msh8e76e31eeb1ad7ap13511bjsn0d7e56185828",  # Replace with your API key
+        "X-RapidAPI-Key": "b55fdd55d4msh125e49a4276468cp1f78cfjsn9d0219f70c90",  # Replace with your API key
         "x-rapidapi-host": "linkedin-data-api.p.rapidapi.com"
     }
-try:
-    nlp = spacy.load("en_core_web_sm")
-except OSError:
-    subprocess.run(["python", "-m", "spacy", "download", "en_core_web_sm"])
-    nlp = spacy.load("en_core_web_sm")
 def load_user_data(profile_url):
     import requests
     x="https://linkedin-data-api.p.rapidapi.com/get-profile-data-by-url?url="
@@ -57,7 +49,7 @@ def load_job_skills(jobn):
     except requests.exceptions.JSONDecodeError:
             print("Error: Response is not in JSON format. Raw response:")
             print(response.text)
-    # st.write(dataloc)        
+    st.write(dataloc)        
     job_id=dataloc['data'][2]['id']
     datagot=load_job_data(job_id)
     data_of_job=datagot['data']['description']
@@ -123,12 +115,7 @@ def suggest_missing_skills(jobs_he_has, skills_he_need, vectorizer, top_n=5):
 
 
 def job_defined(skills):
-    # try:
-    #     nlp = spacy.load("en_core_web_sm")
-    # except OSError:
-    #     spacy.cli.download("en_core_web_sm")
-    #     nlp = spacy.load("en_core_web_sm")
-    # # nlp = spacy.load("en_core_web_sm")
+    nlp = spacy.load("en_core_web_sm")
     doc = nlp(skills)
     potential_skills = []
     for chunk in doc.noun_chunks:
@@ -154,4 +141,3 @@ if st.button("🔍 Predict Missing Skills"):
     vectorizers.fit(all_skills)
     suggested_skills=suggest_missing_skills(user_skills,job_skills, vectorizers)
     st.write(suggested_skills) 
-    st.warning("If output is no requirements give it a try 3 more times until a job with requirements is found")
