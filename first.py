@@ -11,6 +11,11 @@ headers = {
         "X-RapidAPI-Key": "86ab80ae35msh8e76e31eeb1ad7ap13511bjsn0d7e56185828",  # Replace with your API key
         "x-rapidapi-host": "linkedin-data-api.p.rapidapi.com"
     }
+try:
+    nlp = spacy.load("en_core_web_sm")
+except OSError:
+    subprocess.run(["python", "-m", "spacy", "download", "en_core_web_sm"])
+    nlp = spacy.load("en_core_web_sm")
 def load_user_data(profile_url):
     import requests
     x="https://linkedin-data-api.p.rapidapi.com/get-profile-data-by-url?url="
@@ -118,12 +123,12 @@ def suggest_missing_skills(jobs_he_has, skills_he_need, vectorizer, top_n=5):
 
 
 def job_defined(skills):
-    try:
-        nlp = spacy.load("en_core_web_sm")
-    except OSError:
-        spacy.cli.download("en_core_web_sm")
-        nlp = spacy.load("en_core_web_sm")
-    # nlp = spacy.load("en_core_web_sm")
+    # try:
+    #     nlp = spacy.load("en_core_web_sm")
+    # except OSError:
+    #     spacy.cli.download("en_core_web_sm")
+    #     nlp = spacy.load("en_core_web_sm")
+    # # nlp = spacy.load("en_core_web_sm")
     doc = nlp(skills)
     potential_skills = []
     for chunk in doc.noun_chunks:
