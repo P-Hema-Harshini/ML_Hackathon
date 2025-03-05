@@ -2,3 +2,6 @@ json
 pandas
 sklearn
 spacy
+requests
+deep_translator
+langid
