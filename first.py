@@ -1,29 +1,23 @@
 import streamlit as st
 import json
 import pandas as pd
+import pickle
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import spacy
-import spacy
-import subprocess
-
-# Check if "en_core_web_sm" is installed, else download it
-# try:
-#     nlp = spacy.load("en_core_web_sm")
-# except OSError:
-#     subprocess.run(["python", "-m", "spacy", "download", "en_core_web_sm"])
-#     nlp = spacy.load("en_core_web_sm")  # Load after downloading
-
+with open("vectorizer.pkl", "rb") as file:
+    vectorizer = pickle.load(file)
+headers = {
+        "X-RapidAPI-Key": "86ab80ae35msh8e76e31eeb1ad7ap13511bjsn0d7e56185828",  # Replace with your API key
+        "x-rapidapi-host": "linkedin-data-api.p.rapidapi.com"
+    }
 def load_user_data(profile_url):
     import requests
     x="https://linkedin-data-api.p.rapidapi.com/get-profile-data-by-url?url="
     url = str(x+profile_url)  # Actual API URL
     querystring = {"s": "Inception", "r": "json", "page": "2"}  # Adjust based on API docs
 
-    headers = {
-        "X-RapidAPI-Key": "4f22906f26mshe5d92a6ef0415bfp1d976fjsn4ee2fba12f7e",  # Replace with your API key
-        "x-rapidapi-host": "linkedin-data-api.p.rapidapi.com"
-    }
+    # 
     response = requests.get(url,headers=headers,params=querystring)
     try:
             data3 = response.json()
@@ -35,7 +29,7 @@ def load_user_data(profile_url):
 
     # Extract skills as a list
     skills = [skill["name"] for skill in data3.get("skills",[])]
-    # st.write(skills)
+    st.write(skills)
     df=pd.DataFrame()
     # Convert to DataFrame
     dff = pd.DataFrame({"Skills": [", ".join(skills)]})  # Store skills as a single string
@@ -50,10 +44,7 @@ def load_job_skills(jobn):
     url = str(x+jobn+y)  # Actual API URL
     querystring = {"s": "Inception", "r": "json", "page": "2"}  # Adjust based on API docs
 
-    headers = {
-        "X-RapidAPI-Key": "4f22906f26mshe5d92a6ef0415bfp1d976fjsn4ee2fba12f7e",  # Replace with your API key
-        "x-rapidapi-host": "linkedin-data-api.p.rapidapi.com"
-    }
+    
     response = requests.get(url,headers=headers,params=querystring)
     try:
             dataloc = response.json()
@@ -98,10 +89,7 @@ def load_job_data(id):
     url = str(r+id)# Actual API URL
     querystring = {"s": "Inception", "r": "json", "page": "2"}  # Adjust based on API docs
 
-    headers = {
-        "X-RapidAPI-Key": "4f22906f26mshe5d92a6ef0415bfp1d976fjsn4ee2fba12f7e",  # Replace with your API key
-        "x-rapidapi-host": "linkedin-data-api.p.rapidapi.com"
-    }
+    
     response = requests.get(url,headers=headers,params=querystring)
     try:
             dataj = response.json()
@@ -130,7 +118,6 @@ def suggest_missing_skills(jobs_he_has, skills_he_need, vectorizer, top_n=5):
 
 
 def job_defined(skills):
-    spacy.cli.download("en_core_web_sm")
     nlp = spacy.load("en_core_web_sm")
     doc = nlp(skills)
     potential_skills = []
@@ -153,7 +140,8 @@ if st.button("🔍 Predict Missing Skills"):
     all_skills=[]
     all_skills.extend([skill.strip() for skill in user_skills])
     all_skills.extend([req.strip() for req in job_redefined])
-    vectorizers = TfidfVectorizer()
-    vectorizers.fit(all_skills)
-    suggested_skills=suggest_missing_skills(user_skills,job_skills, vectorizers)
+    # vectorizers = TfidfVectorizer()
+    vectorizer.fit(all_skills)
+    suggested_skills=suggest_missing_skills(user_skills,job_skills, vectorizer)
     st.write(suggested_skills) 
+    st.warning("If output is no requirements give it a try 3 more times until a job with requirements is found")
