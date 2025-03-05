@@ -118,7 +118,12 @@ def suggest_missing_skills(jobs_he_has, skills_he_need, vectorizer, top_n=5):
 
 
 def job_defined(skills):
-    nlp = spacy.load("en_core_web_sm")
+    try:
+        nlp = spacy.load("en_core_web_sm")
+    except OSError:
+        spacy.cli.download("en_core_web_sm")
+        nlp = spacy.load("en_core_web_sm")
+    # nlp = spacy.load("en_core_web_sm")
     doc = nlp(skills)
     potential_skills = []
     for chunk in doc.noun_chunks:
