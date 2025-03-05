@@ -1,12 +1,12 @@
 import streamlit as st
 import json
 import pandas as pd
-import pickle
+# import pickle
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import spacy
-with open("vectorizer.pkl", "rb") as file:
-    vectorizer = pickle.load(file)
+# with open("vectorizer.pkl", "rb") as file:
+#     vectorizer = pickle.load(file)
 headers = {
         "X-RapidAPI-Key": "86ab80ae35msh8e76e31eeb1ad7ap13511bjsn0d7e56185828",  # Replace with your API key
         "x-rapidapi-host": "linkedin-data-api.p.rapidapi.com"
@@ -150,8 +150,8 @@ if st.button("🔍 Predict Missing Skills"):
     all_skills=[]
     all_skills.extend([skill.strip() for skill in user_skills])
     all_skills.extend([req.strip() for req in job_redefined])
-    # vectorizers = TfidfVectorizer()
-    vectorizer.fit(all_skills)
-    suggested_skills=suggest_missing_skills(user_skills,job_skills, vectorizer)
+    vectorizers = TfidfVectorizer()
+    vectorizers.fit(all_skills)
+    suggested_skills=suggest_missing_skills(user_skills,job_skills, vectorizers)
     st.write(suggested_skills) 
     st.warning("If output is no requirements give it a try 3 more times until a job with requirements is found")
