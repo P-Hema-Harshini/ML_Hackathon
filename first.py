@@ -21,7 +21,7 @@ def load_user_data(profile_url):
     querystring = {"s": "Inception", "r": "json", "page": "2"}  # Adjust based on API docs
 
     headers = {
-        "X-RapidAPI-Key": "8e70858158msh48b439bc1296997p1b1b5djsnc63dd6402718",  # Replace with your API key
+        "X-RapidAPI-Key": "4f22906f26mshe5d92a6ef0415bfp1d976fjsn4ee2fba12f7e",  # Replace with your API key
         "x-rapidapi-host": "linkedin-data-api.p.rapidapi.com"
     }
     response = requests.get(url,headers=headers,params=querystring)
@@ -51,7 +51,7 @@ def load_job_skills(jobn):
     querystring = {"s": "Inception", "r": "json", "page": "2"}  # Adjust based on API docs
 
     headers = {
-        "X-RapidAPI-Key": "8e70858158msh48b439bc1296997p1b1b5djsnc63dd6402718",  # Replace with your API key
+        "X-RapidAPI-Key": "4f22906f26mshe5d92a6ef0415bfp1d976fjsn4ee2fba12f7e",  # Replace with your API key
         "x-rapidapi-host": "linkedin-data-api.p.rapidapi.com"
     }
     response = requests.get(url,headers=headers,params=querystring)
@@ -99,7 +99,7 @@ def load_job_data(id):
     querystring = {"s": "Inception", "r": "json", "page": "2"}  # Adjust based on API docs
 
     headers = {
-        "X-RapidAPI-Key": "8e70858158msh48b439bc1296997p1b1b5djsnc63dd6402718",  # Replace with your API key
+        "X-RapidAPI-Key": "4f22906f26mshe5d92a6ef0415bfp1d976fjsn4ee2fba12f7e",  # Replace with your API key
         "x-rapidapi-host": "linkedin-data-api.p.rapidapi.com"
     }
     response = requests.get(url,headers=headers,params=querystring)
