@@ -1,7 +1,8 @@
-
+streamlit
 pandas
-sklearn
-spacy
 requests
-deep_translator
+scikit-learn
+spacy
+deep-translator
 langid
+regex
