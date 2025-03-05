@@ -8,11 +8,11 @@ import spacy
 import subprocess
 
 # Check if "en_core_web_sm" is installed, else download it
-try:
-    nlp = spacy.load("en_core_web_sm")
-except OSError:
-    subprocess.run(["python", "-m", "spacy", "download", "en_core_web_sm"])
-    nlp = spacy.load("en_core_web_sm")  # Load after downloading
+# try:
+#     nlp = spacy.load("en_core_web_sm")
+# except OSError:
+#     subprocess.run(["python", "-m", "spacy", "download", "en_core_web_sm"])
+#     nlp = spacy.load("en_core_web_sm")  # Load after downloading
 
 def load_user_data(profile_url):
     import requests
