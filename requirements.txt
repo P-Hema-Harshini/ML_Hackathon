@@ -1,11 +1,7 @@
 streamlit
 pandas
-requests
 scikit-learn
 spacy
+requests
 deep-translator
 langid
-regex
-pickle
-sklearn
-
