@@ -9,7 +9,7 @@ import langid
 import re
 
 headers = {
-    "X-RapidAPI-Key": st.secrets["X-RapidAPI-Key"],  # Use Streamlit secrets
+    "X-RapidAPI-Key": "86ab80ae35msh8e76e31eeb1ad7ap13511bjsn0d7e56185828",  # Use Streamlit secrets
     "x-rapidapi-host": "linkedin-data-api.p.rapidapi.com"
 }
 
