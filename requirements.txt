@@ -1,6 +1,6 @@
 json
 pandas
-sklearn
+scikit-learn
 spacy
 requests
 deep_translator
