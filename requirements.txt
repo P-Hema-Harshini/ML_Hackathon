@@ -6,3 +6,4 @@ spacy
 deep-translator
 langid
 regex
+python -m spacy download en_core_web_sm
