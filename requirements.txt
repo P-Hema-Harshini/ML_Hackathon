@@ -6,4 +6,5 @@ spacy
 deep-translator
 langid
 regex
+pickle
 
