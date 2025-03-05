@@ -7,4 +7,5 @@ deep-translator
 langid
 regex
 pickle
+sklearn
 
