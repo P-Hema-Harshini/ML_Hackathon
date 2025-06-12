@@ -8,7 +8,7 @@ import spacy
 with open("vectorizer.pkl", "rb") as file:
     vectorizer = pickle.load(file)
 headers = {
-        "X-RapidAPI-Key": "b544320eb4msh0adc6cf78daefe6p10a02djsn41d4a3e9beb1",  # Replace with your API key
+        "X-RapidAPI-Key": "4e3509cd48msh743cc264c57b095p1f70c0jsne9cd2bb841db",  # Replace with your API key
         "x-rapidapi-host": "linkedin-data-api.p.rapidapi.com"
     }
 def load_user_data(profile_url):
