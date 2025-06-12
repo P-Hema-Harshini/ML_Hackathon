@@ -14,30 +14,20 @@ headers = {
 def load_user_data(profile_url):
     import requests
     x="https://linkedin-data-api.p.rapidapi.com/get-profile-data-by-url?url="
-    url = str(x+profile_url)  # Actual API URL
-    querystring = {"s": "Inception", "r": "json", "page": "2"}  # Adjust based on API docs
+    url = str(x+profile_url)
+    querystring = {"s": "Inception", "r": "json", "page": "2"}
 
-    # 
     response = requests.get(url,headers=headers,params=querystring)
     try:
-            data3 = response.json()
-            # return data3
+        data3 = response.json()
     except requests.exceptions.JSONDecodeError:
-            print("Error: Response is not in JSON format. Raw response:")
-            print(response.text)
-    # full_name = f"{data3['firstName']} {data3['lastName']}"
+        print("Error: Response is not in JSON format. Raw response:")
+        print(response.text)
 
-    # Extract skills as a list
     skills = [skill["name"] for skill in data3.get("skills",[])]
     st.write(skills)
-    st.warning("if there is an error saying job_id=dataloc['data'][2]['id'] it means that the apikey is expired . use a valid key to get data")
-    df=pd.DataFrame()
-    # Convert to DataFrame
-    dff = pd.DataFrame({"Skills": [", ".join(skills)]})  # Store skills as a single string
-    # df= pd.concat([df, dff], ignore_index=True)
-    # Display DataFrame
-    # st.write(dff)
-    return dff
+    return skills  # ✅ Now returning list
+
 def load_job_skills(jobn):
     import requests
     x="https://linkedin-data-api.p.rapidapi.com/search-jobs?keywords="
